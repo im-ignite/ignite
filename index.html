@@ -1,149 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY Portfolio</title>
-    <base href="/im-ignite-portfolio.github.io/">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-        .section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-        .social-icons a {
-            transition: transform 0.3s ease;
-        }
-        .social-icons a:hover {
-            transform: scale(1.2);
-        }
-        .project-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        .navbar {
-            transition: background-color 0.3s ease;
-        }
-        .navbar.scrolled {
-            background-color: rgba(30, 58, 138, 0.9);
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IGNITE V3 PRO — Autonomous AI Engineering Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0e0a16;--panel:rgba(30,22,46,.62);--line:rgba(255,255,255,.12);--tx:#f3eefc;--mu:#a99fbd;--em:#ff7a2f;--cy:#3fe0d0;--vi:#a78bfa;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f6f1ee;--panel:rgba(255,255,255,.72);--line:rgba(30,10,40,.14);--tx:#1d1428;--mu:#645a73;--em:#d9500a;--cy:#08877c;--vi:#6d4ed6}}
+:root[data-theme="dark"]{--bg:#0e0a16}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 17px/1.6 Figtree,system-ui,sans-serif;overflow-x:hidden}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+main,nav,footer{position:relative;z-index:1}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px max(5vw,16px)}
+nav b{font:700 18px Unbounded,sans-serif;letter-spacing:.02em}
+nav a{color:var(--mu);text-decoration:none;margin-left:22px;font-size:15px}
+nav a:hover,nav a:focus-visible{color:var(--tx)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--cy);outline-offset:3px}
+section{padding:90px max(5vw,16px);max-width:1180px;margin:0 auto}
+.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;max-width:1180px}
+h1{font:700 clamp(40px,8vw,104px)/1 Unbounded,sans-serif;margin:0 0 22px;letter-spacing:-.03em}
+h1 span{display:block;background:linear-gradient(90deg,var(--em),#ffc46b);-webkit-background-clip:text;background-clip:text;color:transparent;animation:flick 4s ease-in-out infinite}
+@keyframes flick{50%{filter:brightness(1.35) drop-shadow(0 0 22px rgba(255,122,47,.55))}}
+.hero p{max-width:54ch;color:var(--mu);font-size:clamp(17px,2vw,21px)}
+.row{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;align-items:center}
+.cmd{font:500 16px 'IBM Plex Mono',monospace;background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(10px);padding:13px 18px;border-radius:12px;color:var(--tx);cursor:pointer}
+.cmd i{color:var(--em);font-style:normal}
+.btn{background:var(--em);color:#1a0a00;font-weight:600;text-decoration:none;padding:13px 22px;border-radius:12px;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 34px rgba(255,122,47,.4)}
+h2{font:700 clamp(28px,4.5vw,50px)/1.1 Unbounded,sans-serif;margin:0 0 14px;letter-spacing:-.02em}
+.lead{color:var(--mu);max-width:60ch;margin:0 0 40px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;backdrop-filter:blur(10px)}
+.stat b{font:700 44px Unbounded,sans-serif;display:block;color:var(--em)}
+.stat span{color:var(--mu);font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;perspective:1000px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px;backdrop-filter:blur(12px);transform-style:preserve-3d;transition:transform .25s ease-out,border-color .25s;will-change:transform}
+.card:hover{border-color:var(--c,var(--em))}
+.card h3{margin:0 0 8px;font:600 20px Figtree,sans-serif;transform:translateZ(30px)}
+.card p{margin:0;color:var(--mu);font-size:15.5px;transform:translateZ(14px)}
+.card .dot{width:14px;height:14px;border-radius:50%;background:var(--c,var(--em));box-shadow:0 0 18px var(--c,var(--em));margin-bottom:16px;transform:translateZ(46px)}
+.flow{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;align-items:center;color:var(--mu);font:500 14px 'IBM Plex Mono',monospace}
+.flow span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--panel)}
+.term{background:rgba(8,5,14,.88);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);transform:perspective(1200px) rotateX(var(--rx,4deg)) rotateY(var(--ry,-6deg));transition:transform .3s}
+.term .bar{display:flex;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.term .bar i{width:11px;height:11px;border-radius:50%;background:#ff5f57}.term .bar i:nth-child(2){background:#febc2e}.term .bar i:nth-child(3){background:#28c840}
+#tt{padding:20px;font:400 14.5px/1.75 'IBM Plex Mono',monospace;min-height:300px;color:#e9e3f5;white-space:pre-wrap;overflow-x:auto}
+#tt .p{color:var(--em)}#tt .g{color:#7ee787}#tt .c{color:var(--cy)}#tt .v{color:var(--vi)}
+.cur{display:inline-block;width:8px;height:16px;background:var(--em);vertical-align:-2px;animation:bl 1s steps(2) infinite}
+@keyframes bl{50%{opacity:0}}
+.cmds{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.cmds div{display:flex;gap:14px;align-items:baseline;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);backdrop-filter:blur(8px)}
+.cmds code,.chips code{font:500 14px 'IBM Plex Mono',monospace;color:var(--cy);white-space:nowrap}
+.cmds span{color:var(--mu);font-size:14.5px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips code{border:1px solid var(--line);border-radius:10px;padding:8px 14px;background:var(--panel);transition:transform .2s,color .2s}
+.chips code:hover{transform:translateY(-4px) scale(1.05);color:var(--em)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;counter-reset:s}
+.steps .card:before{counter-increment:s;content:counter(s);font:700 34px Unbounded,sans-serif;color:var(--em);display:block;margin-bottom:6px;transform:translateZ(40px)}
+pre{margin:14px 0 0;background:rgba(8,5,14,.7);color:#e9e3f5;padding:12px 14px;border-radius:10px;font:400 13.5px 'IBM Plex Mono',monospace;overflow-x:auto}
+footer{text-align:center;color:var(--mu);padding:60px 16px 90px;font-size:15px}
+footer a{color:var(--em)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+@media (max-width:600px){nav a{display:none}section{padding:60px 16px}}
+</style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Ignite</h1>
-            <div class="space-x-4">
-                <a href="#home" class="text-white hover:text-blue-300">Home</a>
-                <a href="#social" class="text-white hover:text-blue-300">Social</a>
-                <a href="#projects" class="text-white hover:text-blue-300">Projects</a>
-            </div>
-        </div>
-    </nav>
+<canvas id="gl" aria-hidden="true"></canvas>
+<nav><b>IGNITE</b><div><a href="#swarm">Swarm</a><a href="#features">Features</a><a href="#demo">Demo</a><a href="#tools">Tools</a><a href="#start">Install</a></div></nav>
+<main>
+<section class="hero">
+<h1>Your engineer<span>in the terminal.</span></h1>
+<p>IGNITE V3 Pro plans, codes, tests and ships for you. A swarm of three agents works across five AI providers, and every change can be rolled back with one command.</p>
+<div class="row">
+<button class="cmd" id="cp" aria-label="Copy install command"><i>$</i> npm install -g ignite-agent</button>
+<a class="btn" href="https://github.com/im-ignite/ignite-agent">View on GitHub</a>
+</div>
+</section>
 
-    <!-- Hero Section -->
-    <section id="home" class="section flex flex-col items-center text-center">
-        <h1 class="text-5xl font-bold mb-4 animate-hero">Welcome, I'm Ignite</h1>
-        <p class="text-xl mb-6">A passionate creator building awesome projects</p>
-        <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300">View My Work</a>
-    </section>
+<section><div class="stats rv">
+<div class="stat"><b data-n="18">0</b><span>autonomous tools</span></div>
+<div class="stat"><b data-n="5">0</b><span>AI providers with failover</span></div>
+<div class="stat"><b data-n="3">0</b><span>agents in the swarm</span></div>
+<div class="stat"><b data-n="0">0</b><span>mandatory dependencies</span></div>
+</div></section>
 
-    <!-- Social Media Section -->
-    <section id="social" class="section flex flex-col items-center text-center bg-blue-900 bg-opacity-50">
-        <h2 class="text-4xl font-bold mb-8">Connect with Me</h2>
-        <div class="social-icons flex space-x-6">
-            <a href="https://github.com" target="_blank" class="text-3xl"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com" target="_blank" class="text-3xl"><i class="fab fa-linkedin"></i></a>
-            <a href="https://youtube.com" target="_blank" class="text-3xl"><i class="fab fa-youtube"></i></a>
-            <a href="https://twitch.tv" target="_blank" class="text-3xl"><i class="fab fa-twitch"></i></a>
-        </div>
-        <p class="mt-6 text-lg">Follow me on my social platforms for updates!</p>
-    </section>
+<section id="swarm">
+<h2 class="rv">Three agents. One goal.</h2>
+<p class="lead rv">Give <code>/plan</code> a big goal. The Architect splits it into milestones, the Engineer builds each one, and the Critic reviews it before it counts as done.</p>
+<div class="grid">
+<div class="card rv" style="--c:var(--em)"><div class="dot"></div><h3>The Architect</h3><p>Turns a goal into 3–6 milestones, each with clear acceptance criteria.</p></div>
+<div class="card rv" style="--c:var(--cy)"><div class="dot"></div><h3>The Engineer</h3><p>Writes files, runs commands, builds assets and runs the tests.</p></div>
+<div class="card rv" style="--c:var(--vi)"><div class="dot"></div><h3>The Critic</h3><p>Reviews diffs, runs the suite and sends failures back for self-healing fixes.</p></div>
+</div>
+<div class="flow rv"><span>/plan</span>→<span>Architect</span>→<span>Engineer</span>→<span>Critic</span>→<span>self-heal</span>→<span>done</span></div>
+</section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section flex flex-col items-center text-center">
-        <h2 class="text-4xl font-bold mb-8">My Projects</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl">
-            <!-- Project Card 1 -->
-            <div class="project-card bg-blue-800 rounded-lg p-6">
-                <h3 class="text-2xl font-semibold mb-4">Project One</h3>
-                <p class="mb-4">A cool web app built with React and Tailwind CSS.</p>
-                <a href="#" class="text-blue-300 hover:underline">View Project</a>
-            </div>
-            <!-- Project Card 2 -->
-            <div class="project-card bg-blue-800 rounded-lg p-6">
-                <h3 class="text-2xl font-semibold mb-4">Project Two</h3>
-                <p class="mb-4">A game developed using Unity and C#.</p>
-                <a href="#" class="text-blue-300 hover:underline">View Project</a>
-            </div>
-            <!-- Project Card 3 -->
-            <div class="project-card bg-blue-800 rounded-lg p-6">
-                <h3 class="text-2xl font-semibold mb-4">Project Three</h3>
-                <p class="mb-4">A machine learning model for image recognition.</p>
-                <a href="#" class="text-blue-300 hover:underline">View Project</a>
-            </div>
-        </div>
-    </section>
+<section id="features">
+<h2 class="rv">Built so nothing breaks.</h2>
+<p class="lead rv">Safety nets, smart search and automatic failover come built in.</p>
+<div class="grid">
+<div class="card rv"><h3>Multi-model failover</h3><p>Gemini, Groq, Mistral, Cohere and OpenRouter. When one hits a quota limit, IGNITE switches to the next without stopping.</p></div>
+<div class="card rv" style="--c:var(--cy)"><h3>GitShield</h3><p>A snapshot is saved before every task. Run <code>/undo</code> to restore it.</p></div>
+<div class="card rv" style="--c:var(--vi)"><h3>Syntax gatekeeper</h3><p>Python files are parsed before they are written, so broken code never reaches disk.</p></div>
+<div class="card rv"><h3>Self-healing tests</h3><p>Runs pytest, unittest or npm test, reads the traceback, patches the bug and runs again.</p></div>
+<div class="card rv" style="--c:var(--cy)"><h3>Code search</h3><p>SQLite FTS5 BM25 plus AST symbols. Search a large codebase in milliseconds, with no vector database.</p></div>
+<div class="card rv" style="--c:var(--vi)"><h3>MCP client</h3><p>Connects to filesystem, SQLite, GitHub and Puppeteer servers over JSON-RPC 2.0.</p></div>
+<div class="card rv"><h3>Live dashboard</h3><p>Token use, cost, background processes and logs at <code>localhost:7860</code>.</p></div>
+<div class="card rv" style="--c:var(--cy)"><h3>One-key start</h3><p>You need only one API key. A setup wizard runs on first launch.</p></div>
+</div>
+</section>
 
-    <!-- Font Awesome for Social Icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<section id="demo">
+<h2 class="rv">See it work.</h2>
+<p class="lead rv">A typical session, from goal to verified code.</p>
+<div class="term rv" id="term"><div class="bar"><i></i><i></i><i></i></div><div id="tt" aria-live="off"></div></div>
+</section>
 
-    <!-- GSAP Animations -->
-    <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
+<section id="commands">
+<h2 class="rv">Slash commands.</h2>
+<p class="lead rv">Type these at the <code>IGNITE&gt;</code> prompt.</p>
+<div class="cmds rv" id="cl"></div>
+</section>
 
-        // Hero section animation
-        gsap.from('.animate-hero', {
-            opacity: 0,
-            y: 50,
-            duration: 1.5,
-            ease: 'power3.out'
-        });
+<section id="tools">
+<h2 class="rv">18 tools the agent can use.</h2>
+<p class="lead rv">Hover to feel them.</p>
+<div class="chips rv" id="tl"></div>
+</section>
 
-        // Social icons animation
-        gsap.from('.social-icons a', {
-            opacity: 0,
-            scale: 0,
-            stagger: 0.2,
-            duration: 1,
-            ease: 'elastic.out(1, 0.3)',
-            scrollTrigger: {
-                trigger: '#social',
-                start: 'top 80%'
-            }
-        });
+<section id="start">
+<h2 class="rv">Start in a minute.</h2>
+<div class="steps">
+<div class="card rv"><h3>Install</h3><p>Install globally or run once with npx.</p><pre>npm install -g ignite-agent</pre></div>
+<div class="card rv" style="--c:var(--cy)"><h3>Launch</h3><p>Open any project folder. The wizard asks for your API keys on first run.</p><pre>ignite</pre></div>
+<div class="card rv" style="--c:var(--vi)"><h3>Give it a goal</h3><p>Describe what you want built.</p><pre>/plan build a JWT auth system</pre></div>
+</div>
+</section>
+</main>
+<footer>MIT licensed · <a href="https://github.com/im-ignite/ignite-agent">github.com/im-ignite/ignite-agent</a></footer>
 
-        // Project cards animation
-        gsap.from('.project-card', {
-            opacity: 0,
-            y: 50,
-            stagger: 0.3,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-                trigger: '#projects',
-                start: 'top 80%'
-            }
-        });
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+/* data */
+var cmds=[['/plan [goal]','Architect → Engineer → Critic'],['/swarm on|off','Toggle swarm mode'],['/index [rebuild]','Index the codebase'],['/search <query>','Find code and symbols'],['/mcp list|init','Manage MCP servers'],['/undo','Roll back to the checkpoint'],['/diff [file]','Colorized git diff'],['/verify [cmd]','Run the self-healing tests'],['/commit [msg]','Commit all changes'],['/checkpoint','Save a manual snapshot'],['/dashboard','Open the live web UI'],['/model [num]','Pick a model'],['/deploy [target]','Railway, Fly, Docker, Render'],['/memory','Inspect memory and tokens'],['/ps · /kill <pid>','Manage background processes'],['/clear','Reset the chat, keep what it learned']];
+document.getElementById('cl').innerHTML=cmds.map(function(c){return '<div><code>'+c[0].replace(/</g,'&lt;')+'</code><span>'+c[1]+'</span></div>'}).join('');
+var tools='terminal file_read file_write file_patch git git_diff verify_code python_eval spawn kill process_status read_log search code_search mcp_call deploy ask done'.split(' ');
+document.getElementById('tl').innerHTML=tools.map(function(t){return '<code>'+t+'</code>'}).join('');
+/* clipboard */
+var cp=document.getElementById('cp');
+cp.onclick=function(){try{navigator.clipboard.writeText('npm install -g ignite-agent');cp.innerHTML='<i>✓</i> Copied'}catch(e){cp.innerHTML='<i>$</i> Select and copy: npm install -g ignite-agent'}setTimeout(function(){cp.innerHTML='<i>$</i> npm install -g ignite-agent'},2000)};
+/* reveal + counters */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');e.target.querySelectorAll('[data-n]').forEach(count);io.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.rv').forEach(function(n){io.observe(n)});
+function count(el){var n=+el.dataset.n,t0=null;if(RM||!n){el.textContent=n;return}(function f(t){if(!t0)t0=t;var p=Math.min((t-t0)/1200,1);el.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(performance.now())}
+/* 3D tilt cards */
+document.querySelectorAll('.card').forEach(function(c){
+c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='rotateY('+(x*16)+'deg) rotateX('+(-y*16)+'deg) translateZ(8px)'});
+c.addEventListener('mouseleave',function(){c.style.transform=''})});
+/* terminal */
+var script=[['<span class="p">IGNITE&gt;</span> /plan build full-stack auth with JWT and SQLite\n',40],['<span class="v">Architect</span>  4 milestones drafted\n',0],['<span class="c">Engineer</span>   writing auth/models.py … <span class="g">syntax ok</span>\n',0],['<span class="c">Engineer</span>   writing auth/tokens.py … <span class="g">syntax ok</span>\n',0],['<span class="v">Critic</span>     pytest: 2 failed\n',0],['<span class="c">Engineer</span>   patching verify_token (expired claim) …\n',0],['<span class="v">Critic</span>     pytest: <span class="g">14 passed</span> — milestone approved\n',0],['<span class="p">IGNITE&gt;</span> /undo\n',60],['<span class="g">Restored checkpoint.</span> Working tree is clean again.\n',0]];
+var tt=document.getElementById('tt'),shown='';
+function play(){shown='';tt.innerHTML='<span class="cur"></span>';var i=0;(function next(){if(i>=script.length){setTimeout(play,4500);return}var s=script[i++],html=s[0],speed=s[1];if(!speed||RM){shown+=html;tt.innerHTML=shown+'<span class="cur"></span>';setTimeout(next,RM?0:650);return}
+var tmp=document.createElement('div');tmp.innerHTML=html;var txt=tmp.textContent,k=0;(function ty(){k++;tt.innerHTML=shown+txt.slice(0,k).replace(/</g,'&lt;')+'<span class="cur"></span>';if(k<txt.length)setTimeout(ty,speed);else{shown+=html;setTimeout(next,450)}})()})()}
+var started=false;new IntersectionObserver(function(es,o){if(es[0].isIntersecting&&!started){started=true;play();o.disconnect()}},{threshold:.3}).observe(document.getElementById('term'));
+var term=document.getElementById('term');
+addEventListener('mousemove',function(e){term.style.setProperty('--ry',(-6+(e.clientX/innerWidth-.5)*8)+'deg');term.style.setProperty('--rx',(4-(e.clientY/innerHeight-.5)*6)+'deg')});
+/* THREE scene */
+if(!window.THREE)return;
+var cv=document.getElementById('gl'),R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));
+var S=new THREE.Scene(),cam=new THREE.PerspectiveCamera(55,1,.1,100);cam.position.z=7;
+var EM=0xff7a2f,CY=0x3fe0d0,VI=0xa78bfa,G=new THREE.Group();S.add(G);
+var core=new THREE.Mesh(new THREE.IcosahedronGeometry(1.1,1),new THREE.MeshBasicMaterial({color:EM,wireframe:true}));G.add(core);
+var heart=new THREE.Mesh(new THREE.IcosahedronGeometry(.55,0),new THREE.MeshBasicMaterial({color:0xffc46b}));G.add(heart);
+var shell=new THREE.Points(new THREE.IcosahedronGeometry(1.9,2),new THREE.PointsMaterial({color:0xffb27a,size:.045,transparent:true,opacity:.8}));G.add(shell);
+var rings=[],orbs=[];
+[[EM,2.6,0],[CY,3.3,1.05],[VI,4,-1.05]].forEach(function(d,i){
+var piv=new THREE.Group();piv.rotation.x=1.1+i*.5;piv.rotation.y=d[2];G.add(piv);
+var ring=new THREE.Mesh(new THREE.TorusGeometry(d[1],.012,8,160),new THREE.MeshBasicMaterial({color:d[0],transparent:true,opacity:.55}));piv.add(ring);
+var orb=new THREE.Mesh(new THREE.OctahedronGeometry(.17,0),new THREE.MeshBasicMaterial({color:d[0]}));piv.add(orb);
+var trail=new THREE.Points(new THREE.BufferGeometry(),new THREE.PointsMaterial({color:d[0],size:.05,transparent:true,opacity:.7}));
+var tp=new Float32Array(60*3);trail.geometry.setAttribute('position',new THREE.BufferAttribute(tp,3));piv.add(trail);
+orbs.push({piv:piv,orb:orb,r:d[1],sp:.5-i*.12,off:i*2.1,trail:trail,tp:tp});rings.push(ring)});
+var N=1400,pp=new Float32Array(N*3),pc=new Float32Array(N*3),col=[new THREE.Color(EM),new THREE.Color(CY),new THREE.Color(VI)];
+for(var i=0;i<N;i++){var r=6+Math.random()*16,a=Math.random()*6.283,b=Math.acos(2*Math.random()-1);pp[i*3]=r*Math.sin(b)*Math.cos(a);pp[i*3+1]=r*Math.sin(b)*Math.sin(a);pp[i*3+2]=r*Math.cos(b);var c=col[i%3];pc[i*3]=c.r;pc[i*3+1]=c.g;pc[i*3+2]=c.b}
+var pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pp,3));pg.setAttribute('color',new THREE.BufferAttribute(pc,3));
+var dust=new THREE.Points(pg,new THREE.PointsMaterial({size:.06,vertexColors:true,transparent:true,opacity:.75,depthWrite:false}));S.add(dust);
+var mx=0,my=0,sc=0;
+addEventListener('mousemove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+addEventListener('scroll',function(){sc=scrollY/Math.max(1,document.body.scrollHeight-innerHeight)},{passive:true});
+function size(){var w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();G.position.x=w>800?2.4:0;G.position.y=w>800?0:1.6;G.scale.setScalar(w>800?1:.7)}
+addEventListener('resize',size);size();
+var clk=new THREE.Clock(),pulse=0;
+cv.parentNode;addEventListener('click',function(){pulse=1});
+function frame(){var t=clk.getElapsedTime()*(RM?.1:1);
+core.rotation.x=t*.35;core.rotation.y=t*.5;heart.rotation.y=-t*.8;heart.rotation.x=t*.4;
+var s=1+Math.sin(t*2)*.05+pulse*.25;pulse*=.92;heart.scale.setScalar(s);core.scale.setScalar(1+pulse*.2);shell.rotation.y=-t*.15;shell.rotation.z=t*.1;
+orbs.forEach(function(o,i){var a=t*o.sp*2+o.off;o.orb.position.set(Math.cos(a)*o.r,Math.sin(a)*o.r,0);o.orb.rotation.x=t*2;o.orb.rotation.y=t*1.4;var p=o.tp;for(var k=59;k>0;k--){p[k*3]=p[(k-1)*3];p[k*3+1]=p[(k-1)*3+1]}p[0]=o.orb.position.x;p[1]=o.orb.position.y;o.trail.geometry.attributes.position.needsUpdate=true;o.piv.rotation.z=t*.05*(i+1)});
+dust.rotation.y=t*.02+sc*1.5;dust.rotation.x=sc*.6;
+G.rotation.y+=((mx*.9+sc*3.2)-G.rotation.y)*.05;G.rotation.x+=((my*.6+sc*.8)-G.rotation.x)*.05;
+cam.position.z=7+sc*3;cam.position.x+=(mx*.8-cam.position.x)*.04;cam.lookAt(0,0,0);
+R.render(S,cam);requestAnimationFrame(frame)}
+frame();
+})();
+</script>
 </body>
 </html>
